@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>All Complaints</title>
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background: #f7f7f7; }
+    .complaints-container { margin-top: 2rem; }
+    .complaint-card { margin-bottom: 1.5rem; }
+  </style>
+</head>
+<body>
+  <div class="container complaints-container">
+    <h2 class="mb-4 text-center">All Complaints</h2>
+    <% if (complaints && complaints.length > 0) { %>
+      <% complaints.forEach(function(complaint) { %>
+        <div class="card complaint-card">
+          <div class="card-body">
+            <h5 class="card-title"><%= complaint.title %></h5>
+            <p class="card-text"><%= complaint.description %></p>
+            <p class="card-text"><small class="text-muted">Category: <%= complaint.category %> | Status: <%= complaint.status %></small></p>
+            <% if (complaint.image) { %>
+              <img src="<%= complaint.image %>" alt="Complaint Image" class="img-fluid mt-2">
+            <% } %>
+          </div>
+        </div>
+      <% }); %>
+    <% } else { %>
+      <div class="alert alert-info">No complaints found.</div>
+    <% } %>
+    <div class="text-center mt-3">
+      <a href="/complaints/file">File a New Complaint</a>
+    </div>
+  </div>
+
+  <!-- Optional: Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

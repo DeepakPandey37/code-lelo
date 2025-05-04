@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartCity-Zen</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-image: url("images/newbg.jpg");
+      transition: background-image 0.5s ease, color 0.5s ease;
+      font-family: "Poppins", sans-serif;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-image: url("images/darkbg.jpg");
+      color: white;
+    }
+
+    /* Specific elements in dark mode */
+    body.dark-mode .service-box,
+    body.dark-mode .service-box h3,
+    body.dark-mode .service-box p,
+    body.dark-mode .footer p,
+    body.dark-mode .hindi {
+      color: white;
+    }
+
+    body.dark-mode .service-box {
+      background: linear-gradient(45deg, #333, #444);
+      color: white;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      margin-bottom: 150px;
+      font-weight: 650;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      margin: 0 10px;
+      position: relative;
+    }
+
+    .navbar a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      background: white;
+      bottom: -5px;
+      left: 0;
+      transition: 0.3s;
+    }
+
+    .navbar a:hover::after {
+      width: 100%;
+    }
+
+    .navbar .right-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar button {
+      padding: 8px 20px;
+      background: white;
+      color: black;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .navbar button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Dark mode toggle styles */
+    #darkModeToggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #darkModeToggle svg {
+      width: 24px;
+      height: 24px;
+      fill: black;
+      transition: fill 0.3s ease;
+    }
+
+    body.dark-mode #darkModeToggle svg {
+      fill: white;
+    }
+
+    .slider-container {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 50px;
+      margin-top: -114px;
+    }
+
+    .slider {
+      display: flex;
+      width: 500%;
+      animation: slide 25s linear infinite;
+    }
+
+    .slider img {
+      width: 20%;
+      flex-shrink: 0;
+      height: 400px;
+      object-fit: cover;
+      filter: brightness(0.8);
+    }
+
+    @keyframes slide {
+      0% {
+        transform: translateX(0);
+      }
+      19.9%, 20% {
+        transform: translateX(-20%);
+      }
+      39.9%, 40% {
+        transform: translateX(-40%);
+      }
+      59.9%, 60% {
+        transform: translateX(-60%);
+      }
+      79.9%, 80% {
+        transform: translateX(-80%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .services {
+      background: #6667ab;
+      color: white;
+      padding: 60px 20px;
+      margin: 50px 0;
+      /* Adjusted height removed so content flows naturally */
+    }
+
+    .services h2 {
+      margin-bottom: 50px;
+      font-size: 2.5em;
+      text-transform: uppercase;
+      text-align: center;
+      position: relative;
+    }
+
+    .services h2::after {
+      content: '';
+      display: block;
+      width: 100px;
+      height: 3px;
+      background: #4CAF50;
+      margin: 20px auto;
+    }
+
+    .service-grid {
+      display: flex;
+      gap: 30px;
+      overflow-x: auto;
+      padding: 20px 0;
+      scrollbar-width: thin;
+      scrollbar-color: #888 transparent;
+    }
+
+    .service-box {
+      background: linear-gradient(45deg, #ffffff, #f5f5f5);
+      color: #333;
+      min-width: 280px;
+      padding: 30px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      transition: 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(76, 175, 80, 0.1));
+      transform: rotate(45deg);
+    }
+
+    .service-box:hover {
+      transform: translateY(-10px);
+    }
+
+    .service-box i {
+      font-size: 2.5em;
+      color: #4CAF50;
+      margin-bottom: 20px;
+      transition: 0.3s;
+    }
+
+    .service-box h3 {
+      margin: 10px 0;
+      font-size: 1.4em;
+      text-align: center;
+    }
+
+    .service-box p {
+      text-align: center;
+      color: #666;
+      line-height: 1.6;
+      font-size: 0.95em;
+    }
+
+    .footer {
+      background: #181818;
+      color: white;
+      padding: 40px 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .footer div {
+      line-height: 1.8;
+    }
+
+    .footer p:hover {
+      color: #4CAF50;
+      cursor: pointer;
+      transform: translateX(5px);
+      transition: 0.3s;
+    }
+
+    /* Scrollbar styling */
+    .service-grid::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .service-grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .service-grid::-webkit-scrollbar-thumb {
+      background: #888;
+      border-radius: 4px;
+    }
+
+    /* Logo, flag, and extra images */
+    .logo {
+      display: flex;
+    }
+
+    .logo .logo1 {
+      width: 278px;
+      margin-top: -200px;
+    }
+
+    .flag {
+      width: 100px;
+    }
+
+    .clean img {
+      width: 142px;
+      margin-left: 80%;
+      margin-top: -97px;
+      position: relative;
+      top: -83px;
+    }
+
+    .flag img {
+      width: 100px;
+      margin-left: 89vw;
+      position: relative;
+      top: -189px;
+    }
+
+    /* Extra text styling */
+    .hindi {
+      font-size: 40px;
+      margin-top: -53px;
+    }
+
+    .middle-section {
+      margin-left: 42vw;
+    }
+
+    body.dark-mode .flag img {
+      margin-top: 47px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="middle-section">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="">Need help?</a>
+    </div>
+    <div class="right-section">
+      <button id="darkModeToggle">
+        <!-- Moon icon for dark mode -->
+        <svg id="moonIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1-8.313-12.454z"/>
+        </svg>
+        <!-- Sun icon for light mode (hidden by default) -->
+        <svg id="sunIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+          <path d="M12 18a6 6 0 1 1 0-12 6 6 0 0 1 0 12zm0-2a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM11 1h2v3h-2V1zm0 19h2v3h-2v-3zM3.515 4.929l1.414-1.414L7.05 5.636 5.636 7.05 3.515 4.93zM16.95 18.364l1.414-1.414 2.121 2.121-1.414 1.414-2.121-2.121zm2.121-14.85l1.414 1.415-2.121 2.121-1.414-1.414 2.121-2.121zM5.636 16.95l1.414 1.414-2.121 2.121-1.414-1.414 2.121-2.121zM23 11v2h-3v-2h3zM4 11v2H1v-2h3z"/>
+        </svg>
+      </button>
+      <% if (locals.user) { %>
+        <a href="auth/profile" class="nav-link">User profile</a>
+      <% } else { %>
+        <a href="auth/login" class="nav-link">Login</a>
+      <% } %>
+    </div>
+  </div>
+
+  <div class="logo">
+    <img class="logo1" src="images/newlogo.jpg" alt="SmartCity-Zen Logo" />
+    <div class="hindi">"जन सेवा ही हमारा लक्ष्य है!"</div>
+  </div>
+
+  <div class="clean">
+    <img id="cleanImage" src="images/newchasma.jpg" alt="Clean Image" />
+  </div>
+
+  <div class="flag">
+    <img src="images/myflag.jpg" alt="Flag" />
+  </div>
+
+  <div class="slider-container">
+    <div class="slider">
+      <img src="https://images.pexels.com/photos/448828/pexels-photo-448828.jpeg" alt="City 1" />
+      <img src="https://images.pexels.com/photos/13682408/pexels-photo-13682408.jpeg" alt="City 2" />
+      <img src="https://images.pexels.com/photos/29274508/pexels-photo-29274508/free-photo-of-road-construction-workers-operating-jackhammer.jpeg?auto=compress&cs=tinysrgb&w=450&h=750&dpr=2" alt="City 3" />
+      <img src="https://images.pexels.com/photos/17504471/pexels-photo-17504471/free-photo-of-road-works-in-a-city-street.jpeg?auto=compress&cs=tinysrgb&w=450&h=750&dpr=2" alt="City 4" />
+      <img src="https://images.pexels.com/photos/11702508/pexels-photo-11702508.jpeg?auto=compress&cs=tinysrgb&w=450&h=750&dpr=2" alt="City 5" />
+    </div>
+  </div>
+
+  <div class="services">
+    <h2>Our Services</h2>
+    <div class="service-grid">
+      <a href="/complaints/file" class="service-box">
+        <i class="fas fa-file-alt"></i>
+        <h3>File Complaint</h3>
+        <p>Submit and track your complaints efficiently</p>
+      </a>
+      <a href="/complaint-status" class="service-box">
+        <i class="fas fa-clipboard-check"></i>
+        <h3>Complaint Status</h3>
+        <p>Real-time updates on your submissions</p>
+      </a>
+      <a href="/feedbacks/submit" class="service-box">
+        <i class="fas fa-comments"></i>
+        <h3>Feedback System</h3>
+        <p>Share your valuable feedback with us</p>
+      </a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>
+      <p>&rarr; Quick Links</p>
+      <p>&rarr; Support Center</p>
+      <p>&rarr; FAQs</p>
+    </div>
+    <div>
+      <p>&rarr; Terms and Conditions</p>
+      <p>&rarr; Privacy Policy</p>
+      <p>&rarr; Cookie Settings</p>
+    </div>
+    <div>
+      <p>&rarr; About Us</p>
+      <p>&rarr; Careers</p>
+      <p>&rarr; Contact</p>
+    </div>
+    <div class="copyright">
+      <p>&copy; 2025 SmartCity-Zen. All rights reserved.</p>
+    </div>
+  </div>
+
+  <script>
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+    const cleanImage = document.getElementById('cleanImage');
+
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+
+      if (document.body.classList.contains('dark-mode')) {
+        moonIcon.style.display = 'none';
+        sunIcon.style.display = 'block';
+        cleanImage.style.display = 'none';
+      } else {
+        moonIcon.style.display = 'block';
+        sunIcon.style.display = 'none';
+        cleanImage.style.display = 'block';
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %></title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background: #f7f7f7; }
+    .profile-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 5px;
+      margin-top: 2rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .profile-header {
+      border-bottom: 1px solid #eaeaea;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+    }
+    .edit-btn {
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="profile-container">
+      <div class="profile-header text-center">
+        <h2>My Profile</h2>
+        <% if (message) { %>
+          <div class="alert alert-success"><%= message %></div>
+        <% } %>
+      </div>
+      
+      <!-- Display user profile details -->
+      <div class="mb-4">
+        <p><strong>First Name:</strong> <%= user.firstName %></p>
+        <p><strong>Last Name:</strong> <%= user.lastName %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Contact Number:</strong> <%= user.contactNumber %></p>
+        <p><strong>Account Type:</strong> <%= user.accountType %></p>
+      </div>
+
+      <!-- Button to show/hide update form -->
+      <div class="text-center edit-btn">
+        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#updateForm" aria-expanded="false" aria-controls="updateForm">
+          Edit Profile
+        </button>
+      </div>
+
+      <!-- Collapsible Update Form -->
+      <div class="collapse" id="updateForm">
+        <div class="card card-body">
+          <h4 class="mb-3">Update Your Profile</h4>
+          <form action="/user/update-profile" method="POST">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" name="firstName" class="form-control" id="firstName" value="<%= user.firstName %>" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" name="lastName" class="form-control" id="lastName" value="<%= user.lastName %>" required>
+            </div>
+            <div class="form-group">
+              <label for="contactNumber">Contact Number</label>
+              <input type="text" name="contactNumber" class="form-control" id="contactNumber" value="<%= user.contactNumber %>">
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Save Changes</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <!-- Bootstrap and jQuery JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

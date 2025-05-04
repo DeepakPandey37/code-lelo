@@ -1,0 +1,231 @@
+<style>
+    /* General Reset */
+    h1, h2, h3, h4, h5, h6, ul, p {
+        margin: 0;
+        padding: 0;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+    a:hover, a:focus, a:active {
+        color: #ff3666;
+        text-decoration: none;
+    }
+
+    /* Image Styling */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Section Styling */
+    section {
+        padding: 60px 0;
+    }
+
+    /* Footer Styling */
+    .footer {
+        background: linear-gradient(105deg, #6e99e6, #093c94);
+        padding: 80px 0 40px;
+    }
+
+    .single_footer h4 {
+        color: #fff;
+        margin-bottom: 25px;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 20px;
+    }
+
+    .single_footer h4::after {
+        content: "";
+        display: block;
+        height: 2px;
+        width: 40px;
+        background: #fff;
+        margin-top: 20px;
+    }
+
+    .single_footer p {
+        color: #fff;
+    }
+
+    .single_footer ul li a {
+        color: #fff;
+        font-size: 15px;
+        line-height: 36px;
+        text-transform: capitalize;
+    }
+
+    /* Subscribe Form Styling */
+    .subscribe {
+        display: block;
+        position: relative;
+        margin-top: 15px;
+        width: 100%;
+    }
+
+    .subscribe__input {
+        background-color: #fff;
+        border: none;
+        border-radius: 5px;
+        color: #333;
+        font-size: 15px;
+        font-weight: 500;
+        height: 60px;
+        padding: 0 150px 0 20px;
+        text-align: center;
+        text-transform: capitalize;
+        width: 100%;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .subscribe__input {
+            padding: 0 50px 0 20px;
+        }
+    }
+
+    .subscribe__btn {
+        background-color: transparent;
+        border-radius: 0 25px 25px 0;
+        color: #01c7e9;
+        cursor: pointer;
+        display: block;
+        font-size: 20px;
+        height: 60px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 60px;
+    }
+
+    .subscribe__btn:hover i {
+        color: #ff3666;
+    }
+
+    /* Social Profile Styling */
+    .social_profile ul {
+        display: flex;
+        gap: 10px;
+        margin-top: 40px;
+    }
+
+    .social_profile ul li a {
+        display: block;
+        text-align: center;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        font-size: 18px;
+        transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .social_profile ul li a:hover {
+        background-color: #ff3666;
+        border-color: #ff3666;
+    }
+
+    @media only screen and (max-width: 768px) {
+        .social_profile ul li a {
+            margin-bottom: 10px;
+        }
+    }
+
+    @media only screen and (max-width: 480px) {
+        .social_profile ul li a {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+
+    /* Copyright Styling */
+    .copyright {
+        margin-top: 70px;
+        padding-top: 40px;
+        color: #fff;
+        font-size: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.4);
+        text-align: center;
+    }
+
+    .copyright a {
+        color: #01c7e9;
+        transition: color 0.2s ease;
+    }
+
+    .copyright a:hover {
+        color: #ff3666;
+    }
+
+</style>
+
+<div class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-sm-4 col-xs-12">
+                <div class="single_footer">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#">Lorem Ipsum</a></li>
+                        <li><a href="#">Simply dummy text</a></li>
+                        <li><a href="#">The printing and typesetting </a></li>
+                        <li><a href="#">Standard dummy text</a></li>
+                        <li><a href="#">Type specimen book</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="single_footer single_footer_address">
+                    <h4>Page Link</h4>
+                    <ul>
+                        <li><a href="#">Lorem Ipsum</a></li>
+                        <li><a href="#">Simply dummy text</a></li>
+                        <li><a href="#">The printing and typesetting </a></li>
+                        <li><a href="#">Standard dummy text</a></li>
+                        <li><a href="#">Type specimen book</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="single_footer single_footer_address">
+                    <h4>Subscribe today</h4>
+                    <div class="signup_form">
+                        <form action="#" class="subscribe">
+                            <input type="text" class="subscribe__input" placeholder="Enter Email Address">
+                            <button type="button" class="subscribe__btn"><i class="fas fa-paper-plane"></i></button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="social_profile">
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-sm-12 col-xs-12">
+                <p class="copyright">Copyright © 2019 <a href="#">Deepak</a>.</p>
+            </div>
+        </div>
+    </div>
+</div>

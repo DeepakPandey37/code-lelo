@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background: #f8f9fa; }
+    .dashboard-card { margin-bottom: 1rem; }
+    .section-header { margin-top: 2rem; margin-bottom: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 class="mt-4 mb-4 text-center">Admin Dashboard</h1>
+
+    <!-- Statistics Section -->
+    <div class="row">
+      <div class="col-md-4 dashboard-card">
+        <div class="card text-white bg-primary mb-3">
+          <div class="card-header">Total Users</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= stats.totalUsers %></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 dashboard-card">
+        <div class="card text-white bg-warning mb-3">
+          <div class="card-header">Total Complaints</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= stats.totalComplaints %></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 dashboard-card">
+        <div class="card text-white bg-info mb-3">
+          <div class="card-header">Total Feedbacks</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= stats.totalFeedbacks %></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Complaints Breakdown Section -->
+    <div class="row">
+      <div class="col-md-4 dashboard-card">
+        <div class="card text-white bg-secondary mb-3">
+          <div class="card-header">Pending Complaints</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= stats.pendingComplaints %></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 dashboard-card">
+        <div class="card text-white bg-dark mb-3">
+          <div class="card-header">In-Progress Complaints</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= stats.inProgressComplaints %></h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 dashboard-card">
+        <div class="card text-white bg-success mb-3">
+          <div class="card-header">Resolved Complaints</div>
+          <div class="card-body">
+            <h5 class="card-title"><%= stats.resolvedComplaints %></h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pending Complaints Section -->
+    <div class="section-header">
+      <h2>Pending Complaints</h2>
+    </div>
+    <% if (pendingComplaints && pendingComplaints.length > 0) { %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Complaint ID</th>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Assign</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pendingComplaints.forEach(function(complaint) { %>
+        <tr>
+          <td><%= complaint._id %></td>
+          <td><%= complaint.title %></td>
+          <td><%= complaint.description %></td>
+          <td>
+            <form action="/admin/assign/<%= complaint._id %>" method="POST" class="form-inline">
+              <input type="text" name="assignedTo" class="form-control mr-2" placeholder="Admin ID" required>
+              <button type="submit" class="btn btn-sm btn-primary">Assign</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <% } else { %>
+      <div class="alert alert-info">No pending complaints.</div>
+    <% } %>
+    
+    <!-- User Management Section -->
+    <div class="section-header">
+      <h2>User Management</h2>
+    </div>
+    <% if (users && users.length > 0) { %>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>User ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach(function(user) { %>
+        <tr>
+          <td><%= user._id %></td>
+          <td><%= user.firstName %> <%= user.lastName %></td>
+          <td><%= user.email %></td>
+          <td>
+            <form action="/admin/remove-user/<%= user._id %>" method="POST" onsubmit="return confirm('Are you sure you want to remove this user?');">
+              <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+            </form>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <% } else { %>
+      <div class="alert alert-info">No users found.</div>
+    <% } %>
+  </div>
+  
+  <!-- Bootstrap and jQuery JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

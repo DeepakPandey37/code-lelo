@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Submit Feedback</title>
+  <!-- Bootstrap CSS CDN -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body { background: #f7f7f7; }
+    .feedback-form { background: #fff; padding: 2rem; border-radius: 5px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-top: 2rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 feedback-form">
+        <h2 class="mb-4 text-center">Submit Your Feedback</h2>
+        
+        <!-- Display error or success messages -->
+        <% if (error) { %>
+          <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+        <% if (message) { %>  
+          <div class="alert alert-success"><%= message %></div>
+        <% } %>
+
+        <form action="/feedbacks/submit" method="POST">
+          <div class="form-group">
+            <label for="message">Feedback Message</label>
+            <textarea class="form-control" id="message" name="message" rows="4" placeholder="Write your feedback here" required><%= messageField %></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="rating">Rating (1-5)</label>
+            <input type="number" class="form-control" id="rating" name="rating" placeholder="Enter rating" min="1" max="5" required value="<%- rating %>">
+          </div>
+
+          <!-- Location field -->
+          <div class="form-group">
+            <label for="location">Location (Latitude, Longitude)</label>
+            <div class="input-group">
+              <input type="text" class="form-control" id="location" name="location" placeholder="Your location will appear here" readonly>
+              <div class="input-group-append">
+                <button type="button" id="getLocation" class="btn btn-secondary">Get My Location</button>
+              </div>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-block">Submit Feedback</button>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap and jQuery JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Geolocation Script -->
+  <script>
+    document.getElementById('getLocation').addEventListener('click', function() {
+      const locationInput = document.getElementById('location'); 
+      locationInput.value = ''; // Clear previous value
+
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          const latitude = position.coords.latitude.toFixed(6);
+          const longitude = position.coords.longitude.toFixed(6);
+          locationInput.value = latitude + ', ' + longitude;
+        }, function(error) {
+          alert('Error retrieving location: ' + error.message);
+        });
+      } else {
+        alert('Geolocation is not supported by this browser.');
+      }
+    });
+  </script>
+</body>
+</html>

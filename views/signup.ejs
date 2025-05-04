@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    .form-container {
+      max-width: 500px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="form-container">
+      <h2 class="mb-4">Sign Up</h2>
+      <form id="signupForm" action="/auth/signup" method="POST">
+        <div class="form-group">
+          <label for="firstName">First Name</label>
+          <input type="text" name="firstName" class="form-control" id="firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last Name</label>
+          <input type="text" name="lastName" class="form-control" id="lastName" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" name="email" class="form-control" id="email" required>
+        </div>
+        <!-- OTP Section -->
+        <div class="form-group">
+          <label for="otp">Enter OTP</label>
+          <div class="input-group">
+            <input type="text" name="otp" class="form-control" id="otp" placeholder="Enter OTP" required>
+            <div class="input-group-append">
+              <button type="button" id="getOtpButton" class="btn btn-secondary">Get OTP</button>
+            </div>
+          </div>
+        </div>
+        <!-- Additional fields -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" name="password" class="form-control" id="password" required>
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" name="confirmPassword" class="form-control" id="confirmPassword" required>
+        </div>
+        <div class="form-group">
+          <label for="accountType">Account Type</label>
+          <select name="accountType" id="accountType" class="form-control" required>
+            <option value="">Select an option</option>
+            <option value="citizen">Citizen</option>
+            <option value="admin">Admin</option>
+            
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="contactNumber">Contact Number</label>
+          <input type="text" name="contactNumber" class="form-control" id="contactNumber">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- jQuery and Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Handle the Get OTP button click event
+    document.getElementById('getOtpButton').addEventListener('click', async function () {
+      const email = document.getElementById('email').value;
+      if (!email) {
+        alert("Please enter your email first.");
+        return;
+      }
+      try {
+        const response = await fetch('/auth/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email })
+        });
+        // Assuming the server returns JSON with a message
+        const data = await response.json();
+        if (response.ok) {
+          alert("OTP sent to your email. Please check your email.");
+        } else {
+          alert("Error sending OTP: " + (data.error || "Unknown error"));
+        }
+      } catch (err) {
+        console.error(err);
+        alert("An error occurred while sending OTP.");
+      }
+    });
+  </script>
+</body>
+</html>
